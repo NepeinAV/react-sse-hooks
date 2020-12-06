@@ -24,7 +24,6 @@ export type EventSourceEvent<T> = {
 
 export type UseEventSource<I> = {
     source: EventSourceURL,
-    lastEventId?: () => string,
     options?: EventSourceInit & I,
 };
 

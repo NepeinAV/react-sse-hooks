@@ -17,7 +17,7 @@ const useEventSourceListener = function<T>(
             parsedData = JSON.parse(event.data);
         } catch (e) {}
 
-        listener({ data: parsedData, event, ...dependencies });
+        listener({ data: parsedData, event });
     }
 
     const createListener = (source: EventSource) => {
