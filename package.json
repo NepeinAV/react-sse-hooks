@@ -1,14 +1,13 @@
 {
     "name": "react-sse-hooks",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "main": "lib/index.js",
     "author": {
         "email": "nepein96@gmail.com",
         "name": "Nepein Andrey"
     },
     "scripts": {
-        "build": "gulp",
-        "postinstall": "gulp"
+        "build": "gulp"
     },
     "jsnext:main": "es/index.js",
     "typings": "./dts/index.d.ts",
