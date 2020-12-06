@@ -2,7 +2,9 @@ export type EventSourceURL = string;
 
 export type EventSourceConnection = EventSource;
 
-export type CreateConnectionFunc<T extends EventSource> = (url: string, options: EventSourceInit | undefined) => T | undefined;
+export type CreateConnectionFunc<T extends EventSource> =
+    (url: string, options: EventSourceInit | undefined) => T | undefined;
+
 export type GetConnectionFunc<T extends EventSource> = (url: EventSourceURL) => T | undefined;
 
 export type EventSourceContextInterface<T extends EventSource> = {

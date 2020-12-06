@@ -28,15 +28,15 @@ const EventSourceProvider = function({ eventSource, children }: React.PropsWithC
         return connection;
     };
 
-    const getConnection: GetConnectionFunc<any> = (url) => {
-        return connections[url];
-    };
+    const getConnection: GetConnectionFunc<any> = (url) => connections[url];
 
     return (
-        <EventSourceContext.Provider value={{
-            createConnection,
-            getConnection,
-        }}>
+        <EventSourceContext.Provider
+            value={{
+                createConnection,
+                getConnection,
+            }}
+        >
             {children}
         </EventSourceContext.Provider>
     );

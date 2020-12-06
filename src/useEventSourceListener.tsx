@@ -6,9 +6,9 @@ const useEventSourceListener = function<T>(
     { source, event, startOnInit }: UseEventSourceListener<T>,
     dependencies: any[] = [],
 ) {
-    const { name, listener, options } = event;
+    const [wasInit, setInitState] = React.useState(true);
 
-    const [isFirstListening, setFirstListening] = React.useState(true);
+    const { name, listener, options } = event;
 
     const callback = (event: Event & { data: string }) => {
         let parsedData: T | undefined = undefined;
@@ -24,7 +24,7 @@ const useEventSourceListener = function<T>(
         removeListener(source);
 
         source.addEventListener(name, callback as any, options);
-        isFirstListening && setFirstListening(false);
+        !wasInit && setInitState(false);
     }
 
     const removeListener = (source: EventSource) => {
@@ -32,7 +32,7 @@ const useEventSourceListener = function<T>(
     }
 
     React.useEffect(() => {
-        if (source && (!isFirstListening || startOnInit)) {
+        if (source && (wasInit || startOnInit)) {
             createListener(source);
 
             return () => {
@@ -41,10 +41,17 @@ const useEventSourceListener = function<T>(
         }
     }, [source, ...dependencies]);
 
-    return {
-        startListening: () => createListener(source),
-        stopListening: () => removeListener(source),
-    }
+    const startListening = React.useCallback(
+        () => createListener(source),
+        [source, ...dependencies],
+    );
+
+    const stopListening = React.useCallback(
+        () => removeListener(source),
+        [source, ...dependencies],
+    )
+
+    return { startListening, stopListening };
 }
 
 export default useEventSourceListener;

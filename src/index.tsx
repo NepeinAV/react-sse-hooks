@@ -3,4 +3,9 @@ import EventSourceContext from './EventSourceContext';
 import useEventSource from './useEventSource';
 import useEventSourceListener from './useEventSourceListener';
 
-export { EventSourceProvider, EventSourceContext, useEventSource, useEventSourceListener };
+export {
+    EventSourceProvider,
+    EventSourceContext,
+    useEventSource,
+    useEventSourceListener,
+};

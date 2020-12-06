@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { EventSourceContextInterface } from './types';
 
 const EventSourceContext = React.createContext<EventSourceContextInterface<any>>({
