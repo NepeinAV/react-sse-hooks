@@ -90,6 +90,8 @@ const Chat = () => {
 }
 ```
 
+Second argument is dependency array. It works like `useEffect` hook - if it changes, listener will automatically recreate itself with current LexicalEnvironment.
+
 That's it!
 
 ## API reference
