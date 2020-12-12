@@ -1,6 +1,6 @@
 export declare type EventSourceURL = string;
 export declare type EventSourceConnection = EventSource;
-export declare type CreateConnectionFunc<T extends EventSource> = (url: string, options: EventSourceInit | undefined) => T | undefined;
+export declare type CreateConnectionFunc<T extends EventSource> = (url: string, options: EventSourceInit | undefined) => T;
 export declare type GetConnectionFunc<T extends EventSource> = (url: EventSourceURL) => T | undefined;
 export declare type EventSourceContextInterface<T extends EventSource> = {
     createConnection: CreateConnectionFunc<T>;
@@ -12,7 +12,7 @@ export declare type EventSourceProviderProps = {
 export declare type EventSourceEvent<T> = {
     name: string;
     listener: (event: {
-        data: T | undefined;
+        data: T;
         event: Event;
     }) => void;
     options?: boolean | AddEventListenerOptions | EventListenerOptions;

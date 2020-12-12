@@ -6,18 +6,15 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 import * as React from 'react';
+import { parseJSONData } from './utils';
 var useEventSourceListener = function (_a, dependencies) {
     var source = _a.source, event = _a.event, startOnInit = _a.startOnInit;
     if (dependencies === void 0) { dependencies = []; }
-    var _b = React.useState(true), wasInit = _b[0], setInitState = _b[1];
+    var _b = React.useState(false), wasInit = _b[0], setInitState = _b[1];
+    var _c = React.useState(false), wasStoppedManually = _c[0], setStoppedManuallyState = _c[1];
     var name = event.name, listener = event.listener, options = event.options;
     var callback = function (event) {
-        var parsedData = undefined;
-        try {
-            parsedData = JSON.parse(event.data);
-        }
-        catch (e) { }
-        listener({ data: parsedData, event: event });
+        listener({ data: parseJSONData(event.data), event: event });
     };
     var createListener = function (source) {
         removeListener(source);
@@ -28,15 +25,21 @@ var useEventSourceListener = function (_a, dependencies) {
         source.removeEventListener(name, callback, options);
     };
     React.useEffect(function () {
-        if (source && (wasInit || startOnInit)) {
+        if (source && (wasInit || startOnInit) && !wasStoppedManually) {
             createListener(source);
             return function () {
                 removeListener(source);
             };
         }
     }, __spreadArrays([source], dependencies));
-    var startListening = React.useCallback(function () { return createListener(source); }, __spreadArrays([source], dependencies));
-    var stopListening = React.useCallback(function () { return removeListener(source); }, __spreadArrays([source], dependencies));
+    var startListening = React.useCallback(function () {
+        createListener(source);
+        setStoppedManuallyState(false);
+    }, __spreadArrays([source], dependencies));
+    var stopListening = React.useCallback(function () {
+        removeListener(source);
+        setStoppedManuallyState(true);
+    }, __spreadArrays([source], dependencies));
     return { startListening: startListening, stopListening: stopListening };
 };
 export default useEventSourceListener;
