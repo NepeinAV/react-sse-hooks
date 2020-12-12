@@ -1,11 +1,12 @@
 {
     "name": "react-sse-hooks",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "main": "lib/index.js",
     "author": {
         "email": "nepein96@gmail.com",
         "name": "Nepein Andrey"
     },
+    "license": "MIT",
     "scripts": {
         "build": "gulp"
     },

@@ -3,7 +3,7 @@ export type EventSourceURL = string;
 export type EventSourceConnection = EventSource;
 
 export type CreateConnectionFunc<T extends EventSource> =
-    (url: string, options: EventSourceInit | undefined) => T | undefined;
+    (url: string, options: EventSourceInit | undefined) => T;
 
 export type GetConnectionFunc<T extends EventSource> = (url: EventSourceURL) => T | undefined;
 
@@ -18,7 +18,7 @@ export type EventSourceProviderProps = {
 
 export type EventSourceEvent<T> = {
     name: string,
-    listener: (event: { data: T | undefined, event: Event }) => void,
+    listener: (event: { data: T, event: Event }) => void,
     options?: boolean | AddEventListenerOptions | EventListenerOptions,
 };
 

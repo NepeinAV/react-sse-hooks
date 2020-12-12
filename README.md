@@ -94,6 +94,10 @@ Second argument is dependency array. It works like `useEffect` hook - if it chan
 
 That's it!
 
+```
+Don't remember to add "DOM" lib to your tsconfig.json to get EventSource typings!
+```
+
 ## API reference
 
 ### **`EventSourceProvider`**
@@ -105,7 +109,7 @@ That's it!
 ### **`useEventSource`**
 
 ```ts
-useEventSource<CustomEventSource, CustomEventSourceOptions>({
+useEventSource<CustomEventSourceOptions, CustomEventSource>({
     source: string,
     options: {
         withCredentials: boolean,
@@ -132,3 +136,5 @@ const {
     dependencies: any[],
 );
 ```
+
+`stopListening` method stops listening until you manually start it again using `startListening` even one element of the dependency array changes.
