@@ -20,22 +20,27 @@ var __importStar = (this && this.__importStar) || function (mod) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-define(["require", "exports", "react", "react", "./EventSourceContext"], function (require, exports, React, react_1, EventSourceContext_1) {
+define(["require", "exports", "react", "react", "./EventSourceContext", "./exceptions/ImplementationNotExists"], function (require, exports, React, react_1, EventSourceContext_1, ImplementationNotExists_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     React = __importStar(React);
     EventSourceContext_1 = __importDefault(EventSourceContext_1);
+    ImplementationNotExists_1 = __importDefault(ImplementationNotExists_1);
+    var internalEventSource = window && window.EventSource;
     var EventSourceProvider = function (_a) {
         var eventSource = _a.eventSource, children = _a.children;
-        var _b = react_1.useState({}), connections = _b[0], setConnections = _b[1];
+        var connections = react_1.useRef({});
+        if (!internalEventSource && !eventSource)
+            throw new ImplementationNotExists_1.default();
         var createConnection = function (url, options) {
             var _a;
             if (options === void 0) { options = {}; }
-            var connection = new eventSource(url, options);
-            setConnections(Object.assign({}, connections, (_a = {}, _a[url] = connection, _a)));
+            var EventSourceImplementation = eventSource || internalEventSource;
+            var connection = new EventSourceImplementation(url, options);
+            connections.current = Object.assign({}, connections, (_a = {}, _a[url] = connection, _a));
             return connection;
         };
-        var getConnection = function (url) { return connections[url]; };
+        var getConnection = function (url) { return connections.current[url]; };
         return (React.createElement(EventSourceContext_1.default.Provider, { value: {
                 createConnection: createConnection,
                 getConnection: getConnection,

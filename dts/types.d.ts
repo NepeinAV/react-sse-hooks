@@ -7,7 +7,7 @@ export declare type EventSourceContextInterface<T extends EventSource> = {
     getConnection: GetConnectionFunc<T>;
 };
 export declare type EventSourceProviderProps = {
-    eventSource: typeof EventSource;
+    eventSource?: typeof EventSource;
 };
 export declare type EventSourceEvent<T> = {
     name: string;
