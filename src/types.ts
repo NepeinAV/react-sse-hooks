@@ -13,7 +13,7 @@ export type EventSourceContextInterface<T extends EventSource> = {
 };
 
 export type EventSourceProviderProps = {
-    eventSource: typeof EventSource,
+    eventSource?: typeof EventSource,
 };
 
 export type EventSourceEvent<T> = {
