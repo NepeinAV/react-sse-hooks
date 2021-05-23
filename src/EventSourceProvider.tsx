@@ -12,15 +12,17 @@ import {
     GetConnectionFunc,
 } from './types';
 
-const internalEventSource = window && window.EventSource;
-
 const EventSourceProvider = function({ eventSource, children }: React.PropsWithChildren<EventSourceProviderProps>) {
+    const internalEventSource = typeof window !== 'undefined' && window.EventSource;
+
     const connections = useRef<Record<EventSourceURL, EventSourceConnection>>({});
 
     if (!internalEventSource && !eventSource) throw new ImplementationNotExists();
 
     const createConnection: CreateConnectionFunc<any> = (url, options = {}) => {
         const EventSourceImplementation = eventSource || internalEventSource;
+        if (!EventSourceImplementation) throw new ImplementationNotExists();
+
         const connection = new EventSourceImplementation(url, options);
 
         connections.current = Object.assign(
