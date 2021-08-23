@@ -1,5 +1,5 @@
 # React SSE hooks
-Is a pretty simple set of hooks that can help you implement interaction with your SSE (Server Sent Events) server.
+It is a simple set of hooks that can help you implement interaction with your SSE (Server Sent Events) server.
 
 This library works perfectly with both React and React Native.
 
