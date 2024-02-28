@@ -95,7 +95,7 @@ Second argument is dependency array. It works like `useEffect` hook - if it chan
 That's it!
 
 ```
-Don't remember to add "DOM" lib to your tsconfig.json to get EventSource typings!
+Don't forget to add "DOM" lib to your tsconfig.json to get EventSource typings!
 ```
 
 ## API reference
