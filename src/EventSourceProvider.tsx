@@ -27,7 +27,7 @@ const EventSourceProvider = function({ eventSource, children }: React.PropsWithC
 
         connections.current = Object.assign(
             {},
-            connections,
+            connections.current,
             { [url]: connection },
         )
 
