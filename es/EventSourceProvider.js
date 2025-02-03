@@ -15,7 +15,7 @@ var EventSourceProvider = function (_a) {
         if (!EventSourceImplementation)
             throw new ImplementationNotExists();
         var connection = new EventSourceImplementation(url, options);
-        connections.current = Object.assign({}, connections, (_a = {}, _a[url] = connection, _a));
+        connections.current = Object.assign({}, connections.current, (_a = {}, _a[url] = connection, _a));
         return connection;
     };
     var getConnection = function (url) { return connections.current[url]; };
